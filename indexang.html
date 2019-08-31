@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html ng-app="todo">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <link rel="stylesheet" href="st.css"> -->
+<title>
+	Список задач
+</title>
+<!--<script src="jquery-3.3.1.min.js"></script>
+<script src="angular.min.js"></script>-->
+<script src="angular.min.js"></script>
+</head>
+<body>
+<style>
+	* {
+		padding: 0;
+		margin: 0;
+		outline: none;
+		font-family: Helvetica, sans-serif;
+	}
+	html, body {
+		height: 100%;
+	}
+	body {
+		background-image: url(skog.jpg);
+		background-size: cover;
+	}
+	.container {
+		max-width: 500px;
+		min-height: 100%;
+		margin: 0 auto;
+		background-color: rgba(0, 0, 0, 0.7);
+		text-align: center;
+	}
+	input,
+	button {
+		display: inline-block;
+		margin-top: 20px;
+	}
+
+	button {
+		background-color: rgba(0, 0, 0, 0.9);
+		border: 2px solid #222;
+		border-radius: 4px;
+		padding: 7px 10px;
+		color: #DDD;
+	}
+	input {
+		border: 2px solid #222;
+		border-radius: 4px;
+		padding: 0 10px;
+		height: 30px;
+	}
+	.tasks {
+		position: relative;
+		max-width: 400px;
+		height: auto;
+		line-height: normal;
+		background-color: rgba(0, 0, 0, 0.7);
+		color: #80baff;
+		text-shadow: 0 0 7px #80baff;
+		box-sizing: border-box;
+		padding: 15px;
+		border-radius: 4px;
+		margin: 10px auto;
+		text-align: left;
+	}
+
+	.tasks a {
+		display: block;
+		text-decoration: none;
+		color: #EEE;
+		position: absolute;
+		right: 0;
+		top: 50%;
+    	width: 20px;
+    	font-size: 20px;
+    	margin-top: -12px;
+	}
+
+	@media (max-width: 768px) {
+		.container {
+			box-sizing: border-box;
+			padding: 0 15px;
+		}
+
+		body {
+			background-size: auto;
+			background-position: 50% 50%;
+			
+		}
+	}
+</style>
+<div class="container">
+	<input id="inp" ng-model="aufgabe" type="text">
+	<button ng-click="add()" id="btn">Добавить</button>
+	<div ng-repeat="elem in data track by $index" class="tasks">
+		<span ng-bind="elem"></span>
+		<a ng-click="rem($index)" href="#">&times;</a>
+
+	</div>
+</div>
+
+<script>
+
+	angular.module("todo", [])
+	.run(function($rootScope){
+		$rootScope.data = JSON.parse(localStorage.getItem("data")) || [];
+		$rootScope.rem = function(ind){
+			$rootScope.data.splice(ind, 1);
+			localStorage.setItem("data", JSON.stringify($rootScope.data));
+		}
+		$rootScope.add = function() {
+			$rootScope.data.push($rootScope.aufgabe);
+			localStorage.setItem("data", JSON.stringify($rootScope.data));
+			inp.value='';
+		}
+	});
+	
+</script>
+</body>
+</html>

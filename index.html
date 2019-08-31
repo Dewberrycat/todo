@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <link rel="stylesheet" href="st.css"> -->
+<title>
+	Список задач
+</title>
+<!--<script src="jquery-3.3.1.min.js"></script>
+<script src="jquery.ripples-min.js"></script>-->
+</head>
+<body>
+<style>
+	* {
+		padding: 0;
+		margin: 0;
+		outline: none;
+		font-family: Helvetica, sans-serif;
+	}
+	html, body {
+		height: 100%;
+	}
+	body {
+		background-image: url(skog.jpg);
+		background-size: cover;
+	}
+	.container {
+		max-width: 500px;
+		min-height: 100%;
+		margin: 0 auto;
+		background-color: rgba(0, 0, 0, 0.7);
+		text-align: center;
+	}
+	input,
+	button {
+		display: inline-block;
+		margin-top: 20px;
+	}
+
+	button {
+		background-color: rgba(0, 0, 0, 0.9);
+		border: 2px solid #222;
+		border-radius: 4px;
+		padding: 0px 10px;
+		color: #DDD;
+		box-sizing: border-box;
+		height: 30px;
+		margin-left: 10px;
+	}
+	input {
+		border: 2px solid #222;
+		border-radius: 4px;
+		padding: 0 10px;
+		height: 30px;
+		box-sizing: border-box;
+	}
+	#tasks div {
+		position: relative;
+		max-width: 400px;
+		height: auto;
+		line-height: normal;
+		background-color: rgba(0, 0, 0, 0.7);
+		color: #80baff;
+		text-shadow: 0 0 7px #80baff;
+		box-sizing: border-box;
+		padding: 15px;
+		border-radius: 4px;
+		margin: 10px auto;
+		text-align: left;
+	}
+
+	#tasks div a {
+		display: block;
+		text-decoration: none;
+		color: #EEE;
+		position: absolute;
+		right: 0;
+		top: 50%;
+    	width: 20px;
+    	font-size: 20px;
+    	margin-top: -12px;
+	}
+
+	@media (max-width: 768px) {
+		.container {
+			box-sizing: border-box;
+			padding: 0 15px;
+		}
+
+		body {
+			background-size: auto;
+			background-position: 50% 50%;
+			
+		}
+	}
+</style>
+<div class="container">
+	<input id="inp" type="text">
+	<button id="btn">Добавить</button>
+	<div id="tasks">
+	</div>
+</div>
+
+<script>
+	var data = JSON.parse(localStorage.getItem("data")) || [];
+	for (let i = 0; i < data.length; i++) {
+		var div = document.createElement('div');
+		var span = document.createElement('span');
+		var a = document.createElement('a');
+		span.textContent = data[i];
+		a.innerHTML = "&times;"
+		a.href = "#";
+		a.onclick = function() {
+			data.splice(data.indexOf(this.previousSibling.textContent), 1);
+			this.parentNode.remove();
+			localStorage.setItem("data", JSON.stringify(data));
+		};
+		div.appendChild(span);
+		div.appendChild(a);
+		tasks.appendChild(div);
+
+	}
+	btn.onclick = function() {
+		var div = document.createElement('div');
+		var span = document.createElement('span');
+		var a = document.createElement('a');
+		span.textContent = inp.value;
+		data.push(inp.value);
+		localStorage.setItem("data", JSON.stringify(data));
+		a.innerHTML = "&times;"
+		a.href = "#";
+		a.onclick = function() {
+			data.splice(data.indexOf(this.previousSibling.textContent), 1);
+			this.parentNode.remove();
+			localStorage.setItem("data", JSON.stringify(data));
+		};
+		div.appendChild(span);
+		div.appendChild(a);
+		tasks.appendChild(div);
+		inp.value='';
+	};
+
+
+	/*$('body').ripples({
+			resolution: 512,
+			dropRadius: 20,
+			perturbance: 0.04,
+		});*/
+</script>
+</body>
+</html>
