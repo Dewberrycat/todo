@@ -7,9 +7,9 @@
 <title>
 	Список задач
 </title>
-<script src="jquery-3.3.1.min.js"></script>
+<!--<script src="jquery-3.3.1.min.js"></script>
+<script src="angular.min.js"></script>-->
 <script src="angular.min.js"></script>
-
 </head>
 <body>
 <style>
@@ -23,8 +23,7 @@
 		height: 100%;
 	}
 	body {
-		background-image: url(http://kototort.info/back.jpg);
-		background-image: url(Forest-Wallpapers-HD-A33.jpg);
+		background-image: url(skog.jpg);
 		background-size: cover;
 	}
 	.container {
@@ -96,7 +95,7 @@
 <div class="container">
 	<input id="inp" ng-model="aufgabe" type="text">
 	<button ng-click="add()" id="btn">Добавить</button>
-	<div ng-repeat="elem in data" class="tasks">
+	<div ng-repeat="elem in data track by $index" class="tasks">
 		<span ng-bind="elem"></span>
 		<a ng-click="rem($index)" href="#">&times;</a>
 
